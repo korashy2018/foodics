@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Ingreditents\Models\Ingredient;
+use App\Domains\Ingreditents\Models\Ingredient;
 use App\Http\Requests\Ingredients\StoreIngredientRequest;
 use App\Http\Requests\Ingredients\UpdateIngredientRequest;
 use Illuminate\Routing\Controller;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\Prefix;
 
+#[Prefix('api/v1/ingredients')]
 class IngredientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    #[Get(uri: '/',name: 'index')]
     public function index()
     {
         //
@@ -20,6 +25,7 @@ class IngredientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    #[Post(uri:'/',name:'store')]
     public function store(StoreIngredientRequest $request)
     {
         //

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Product\Models\Product;
+use App\Domains\Product\Models\Product;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use Illuminate\Routing\Controller;
+use Spatie\RouteAttributes\Attributes\Prefix;
 
+#[Prefix('api/v1/products')]
 class ProductController extends Controller
 {
     /**

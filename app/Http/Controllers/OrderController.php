@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Order\Models\Order;
+use App\Domains\Order\Models\Order;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
 use Illuminate\Routing\Controller;
+use Spatie\RouteAttributes\Attributes\Prefix;
 
+#[Prefix('api/v1/orders')]
 class OrderController extends Controller
 {
     /**
