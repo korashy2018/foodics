@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Domains\Ingreditents\Models\Ingredient;
 use App\Http\Requests\Ingredients\StoreIngredientRequest;
 use App\Http\Requests\Ingredients\UpdateIngredientRequest;
 use Illuminate\Routing\Controller;
 use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
-#[Prefix('api/v1/ingredients')]
-class IngredientController extends Controller
+#[Prefix('ingredients')]
+#[Middleware('auth:sanctum')]
+class IngredientController extends BaseApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +21,7 @@ class IngredientController extends Controller
     #[Get(uri: '/',name: 'index')]
     public function index()
     {
-        //
+        return auth()->user()->name;
     }
 
     /**

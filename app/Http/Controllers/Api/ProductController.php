@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Domains\Product\Models\Product;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use Illuminate\Routing\Controller;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
-#[Prefix('api/v1/products')]
-class ProductController extends Controller
+#[Prefix('products')]
+#[Middleware('auth:sanctum')]
+class ProductController extends BaseApiController
 {
     /**
      * Display a listing of the resource.
      */
+    #[Get(uri: '/',name: 'index')]
     public function index()
     {
         //

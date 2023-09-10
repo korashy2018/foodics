@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Domains\Order\Models\Order;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
 use Illuminate\Routing\Controller;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
-#[Prefix('api/v1/orders')]
-class OrderController extends Controller
+#[Prefix('orders')]
+#[Middleware('auth:sanctum')]
+class OrderController extends BaseApiController
 {
     /**
      * Display a listing of the resource.
      */
+    #[Get(uri: '/',name: 'index')]
     public function index()
     {
         //

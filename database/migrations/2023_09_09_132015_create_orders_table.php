@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->references('users')->on('user')->onDelete('SET NULL');
+            $table->foreignId('customer_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->dateTime('order_date');
             $table->string('current_status');
             $table->softDeletes();
