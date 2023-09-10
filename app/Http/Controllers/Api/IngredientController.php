@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Domains\Ingreditents\Models\Ingredient;
 use App\Http\Requests\Ingredients\StoreIngredientRequest;
 use App\Http\Requests\Ingredients\UpdateIngredientRequest;
-use Illuminate\Routing\Controller;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -18,16 +17,16 @@ class IngredientController extends BaseApiController
     /**
      * Display a listing of the resource.
      */
-    #[Get(uri: '/',name: 'index')]
+    #[Get(uri: '/', name: 'index')]
     public function index()
     {
-        return auth()->user()->name;
+        return $this->sendResponse(['username' => auth()->user()->name], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    #[Post(uri:'/',name:'store')]
+    #[Post(uri: '/', name: 'store')]
     public function store(StoreIngredientRequest $request)
     {
         //
