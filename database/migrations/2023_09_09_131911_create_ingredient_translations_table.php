@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,6 +17,8 @@ return new class extends Migration
             $table->unique(['ingredient_id', 'locale'], 'ingredient_id_trans_with_locale');
             $table->foreignId('ingredient_id')->references('id')
                 ->on('ingredients');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

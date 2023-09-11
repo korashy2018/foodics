@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Ingreditents\Models;
+namespace App\Domains\Ingredients\Models;
 
 use App\Domains\Product\Models\Product;
 use Astrotomic\Translatable\Translatable;
@@ -15,6 +15,9 @@ class Ingredient extends Model
     use HasFactory, SoftDeletes, Translatable;
 
     public $translationModel = IngredientTranslation::class;
+    public $translatedAttributes = [
+        'name'
+    ];
     protected $table = 'ingredients';
     protected $fillable = [
         'expiry_date'

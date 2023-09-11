@@ -15,6 +15,9 @@ class Product extends Model
     use HasFactory, SoftDeletes, Translatable;
 
     public $translationModel = ProductTranslation::class;
+    public $translatedAttributes = [
+        'name'
+    ];
     protected $table = 'products';
     protected $fillable = [
         'price'
