@@ -28,7 +28,7 @@ class IngredientController extends BaseApiController
     public function index()
     {
         try {
-            $ingredients = Ingredient::all();
+            $ingredients = Ingredient::paginate(5);
             return $this->sendResponse(new IngredientCollectionResource($ingredients), '');
         } catch (Throwable $exception) {
             Log::error('error creating the ingredient ', [
@@ -104,8 +104,8 @@ class IngredientController extends BaseApiController
     public function destroy(Ingredient $ingredient, DeleteIngredientAction $deleteIngredientAction): JsonResponse
     {
         try {
-            $ingredientDeleted = $deleteIngredientAction($ingredient);
-            return $this->sendResponse([], 'Deleted Successfully');
+            if ($deleteIngredientAction($ingredient)) return $this->sendResponse([], 'Deleted Successfully');
+            return $this->sendError(error: 'error deleting resource', code: 500);
         } catch (Throwable $exception) {
             Log::error('error creating the ingredient ', [
                 'file' => $exception->getFile(),

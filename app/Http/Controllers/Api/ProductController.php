@@ -24,7 +24,7 @@ class ProductController extends BaseApiController
     public function index(): JsonResponse
     {
         try {
-            $products = Product::all();
+            $products = Product::paginate(5);
             return $this->sendResponse(new ProductCollectionResource($products), '');
         } catch (Throwable $exception) {
             Log::error('error creating the product ', [
