@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domains\Ingredients\Actions\CreateIngredientAction;
+use App\Domains\Ingredients\Actions\DeleteIngredientAction;
 use App\Domains\Ingredients\Actions\UpdateIngredientAction;
 use App\Domains\Ingredients\DTO\IngredientData;
 use App\Domains\Ingredients\Models\Ingredient;
@@ -10,14 +11,15 @@ use App\Http\Resources\Ingredients\IngredientCollectionResource;
 use App\Http\Resources\Ingredients\IngredientResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Post;
-use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Put;
+use Spatie\RouteAttributes\Attributes\Resource;
 use Throwable;
 
-#[Prefix('ingredients')]
+#[Resource(resource: 'ingredients', apiResource: true)]
 #[Middleware('auth:sanctum')]
 class IngredientController extends BaseApiController
 {
@@ -104,8 +106,20 @@ class IngredientController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ingredient $ingredient)
+    #[Delete('/{ingredient}')]
+    public function destroy(Ingredient $ingredient, DeleteIngredientAction $deleteIngredientAction): JsonResponse
     {
-        //
+        try {
+            $ingredientDeleted = $deleteIngredientAction($ingredient);
+            return $this->sendResponse([], 'Deleted Successfully');
+        } catch (Throwable $exception) {
+            Log::error('error creating the ingredient ', [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'message' => $exception->getMessage(),
+                'Trace' => $exception->getTrace()
+            ]);
+            return $this->sendError(error: $exception->getMessage(), code: 500);
+        }
     }
 }

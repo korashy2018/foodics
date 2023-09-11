@@ -15,9 +15,8 @@ class Ingredient extends Model
     use HasFactory, SoftDeletes, Translatable;
 
     public $translationModel = IngredientTranslation::class;
-    public $translatedAttributes = [
-        'name'
-    ];
+    protected array $translatedAttributes = ['name'];
+
     protected $table = 'ingredients';
     protected $fillable = [
         'expiry_date'
