@@ -14,7 +14,7 @@ class StockResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $unitOfMeasure = (!$this->is_countable) ? $this->unit_measure : null;
+        $unitOfMeasure = (!$this->is_countable) ? $this->unit_measure : 'pieces';
         return [
             'quantity' => $this->quantity,
             'unit_measure' => $unitOfMeasure
