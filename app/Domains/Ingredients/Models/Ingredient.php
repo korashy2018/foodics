@@ -3,11 +3,11 @@
 namespace App\Domains\Ingredients\Models;
 
 use App\Domains\Product\Models\Product;
+use App\Domains\Stock\Models\Stock;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ingredient extends Model
@@ -22,12 +22,10 @@ class Ingredient extends Model
         'expiry_date'
     ];
 
-    /**
-     * @return MorphTo
-     */
-    public function stockable(): MorphTo
+
+    public function stock()
     {
-        return $this->morphTo();
+        return $this->morphOne(Stock::class, 'stockable');
     }
 
     /**

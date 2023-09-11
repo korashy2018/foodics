@@ -5,6 +5,7 @@ namespace App\Domains\Stock\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Stock extends Model
@@ -26,5 +27,13 @@ class Stock extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(StockTransaction::class, 'stock_id', 'id');
+    }
+
+    /**
+     * @return MorphTo
+     */
+    public function stockable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

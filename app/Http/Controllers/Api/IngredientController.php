@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Domains\Ingredients\Actions\CreateIngredientAction;
 use App\Domains\Ingredients\Actions\DeleteIngredientAction;
 use App\Domains\Ingredients\Actions\UpdateIngredientAction;
+use App\Domains\Ingredients\Actions\UpdateIngredientStockAction;
 use App\Domains\Ingredients\DTO\IngredientData;
+use App\Domains\Ingredients\DTO\IngredientUpdateStockData;
 use App\Domains\Ingredients\Models\Ingredient;
 use App\Http\Resources\Ingredients\IngredientCollectionResource;
 use App\Http\Resources\Ingredients\IngredientResource;
@@ -13,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
+use Spatie\RouteAttributes\Attributes\Put;
 use Spatie\RouteAttributes\Attributes\Resource;
 use Throwable;
 
@@ -106,6 +109,23 @@ class IngredientController extends BaseApiController
         try {
             if ($deleteIngredientAction($ingredient)) return $this->sendResponse([], 'Deleted Successfully');
             return $this->sendError(error: 'error deleting resource', code: 500);
+        } catch (Throwable $exception) {
+            Log::error('error creating the ingredient ', [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'message' => $exception->getMessage(),
+                'Trace' => $exception->getTrace()
+            ]);
+            return $this->sendError(error: $exception->getMessage(), code: 500);
+        }
+    }
+
+    #[Put(uri: '/ingredients/{ingredient}/updateStock', name: 'updateStock')]
+    public function updateStock(Ingredient $ingredient, UpdateIngredientStockAction $updateIngredientStockAction, IngredientUpdateStockData $dto): JsonResponse
+    {
+        try {
+            $ingredient = $updateIngredientStockAction($dto, $ingredient);
+            return $this->sendResponse(new IngredientResource($ingredient), 'Updated Successfully');
         } catch (Throwable $exception) {
             Log::error('error creating the ingredient ', [
                 'file' => $exception->getFile(),

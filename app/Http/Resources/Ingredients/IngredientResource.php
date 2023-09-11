@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Ingredients;
 
+use App\Http\Resources\Stocks\StockResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,8 @@ class IngredientResource extends JsonResource
             'name' => $this->name,
             'quantity_required' => $this->whenPivotLoaded('ingredients_products', function () {
                 return $this->pivot->quantity_required;
-            })
+            }),
+            'stock_available' => new StockResource($this->whenLoaded('stock'))
         ];
     }
 }
