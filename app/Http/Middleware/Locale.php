@@ -26,7 +26,7 @@ class Locale
             $languageCode = 'en';
         }
         LaravelLocalization::setLocale($languageCode);
-//        $request->route()->forgetParameter('lang');
+        $request->route()->forgetParameter('lang');
         return $next($request);
 
     }

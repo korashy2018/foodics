@@ -11,22 +11,20 @@ use App\Http\Resources\Ingredients\IngredientCollectionResource;
 use App\Http\Resources\Ingredients\IngredientResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Spatie\RouteAttributes\Attributes\Delete;
-use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
-use Spatie\RouteAttributes\Attributes\Post;
-use Spatie\RouteAttributes\Attributes\Put;
+use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Resource;
 use Throwable;
 
+
+#[Prefix('{lang}')]
 #[Resource(resource: 'ingredients', apiResource: true)]
-#[Middleware('auth:sanctum')]
+#[Middleware(['auth:sanctum', 'Locale'])]
 class IngredientController extends BaseApiController
 {
     /**
      * Display a listing of the resource.
      */
-    #[Get(uri: '/', name: 'index')]
     public function index()
     {
         try {
@@ -46,7 +44,6 @@ class IngredientController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      */
-    #[Post(uri: '/', name: 'store')]
     public function store(IngredientData $dto, CreateIngredientAction $createIngredientAction): JsonResponse
     {
         try {
@@ -67,7 +64,6 @@ class IngredientController extends BaseApiController
     /**
      * Display the specified resource.
      */
-    #[Get('/{ingredient}')]
     public function show(Ingredient $ingredient): JsonResponse
     {
         try {
@@ -86,7 +82,6 @@ class IngredientController extends BaseApiController
     /**
      * Update the specified resource in storage.
      */
-    #[Put('/{ingredient}')]
     public function update(IngredientData $dto, UpdateIngredientAction $updateIngredientAction, Ingredient $ingredient): JsonResponse
     {
         try {
@@ -106,7 +101,6 @@ class IngredientController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      */
-    #[Delete('/{ingredient}')]
     public function destroy(Ingredient $ingredient, DeleteIngredientAction $deleteIngredientAction): JsonResponse
     {
         try {

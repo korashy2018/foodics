@@ -8,19 +8,19 @@ use App\Http\Requests\Products\UpdateProductRequest;
 use App\Http\Resources\Products\ProductCollectionResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
+use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Resource;
 use Throwable;
 
+#[Prefix('{lang}')]
 #[Resource(resource: 'products', apiResource: true)]
-#[Middleware('auth:sanctum')]
+#[Middleware(['auth:sanctum', 'Locale'])]
 class ProductController extends BaseApiController
 {
     /**
      * Display a listing of the resource.
      */
-    #[Get(uri: '/', name: 'index')]
     public function index(): JsonResponse
     {
         try {

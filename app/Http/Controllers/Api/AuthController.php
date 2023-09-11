@@ -17,7 +17,7 @@ class AuthController extends BaseApiController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Post(uri: 'register')]
+    #[Post(uri: 'register', name: 'register')]
     public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -46,7 +46,7 @@ class AuthController extends BaseApiController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Post(uri: 'login')]
+    #[Post(uri: 'login', name: 'login')]
     public function login(Request $request): JsonResponse
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
