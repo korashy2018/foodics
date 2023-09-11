@@ -17,7 +17,10 @@ class IngredientResource extends JsonResource
         return [
             'id' => $this->id,
             'expiry_date' => $this->expiry_date,
-            'name' => $this->name
+            'name' => $this->name,
+            'quantity_required' => $this->whenPivotLoaded('ingredients_products', function () {
+                return $this->pivot->quantity_required;
+            })
         ];
     }
 }

@@ -28,7 +28,7 @@ class IngredientController extends BaseApiController
     public function index()
     {
         try {
-            $ingredients = Ingredient::paginate(5);
+            $ingredients = Ingredient::orderBy('id', 'ASC')->paginate(5);
             return $this->sendResponse(new IngredientCollectionResource($ingredients), '');
         } catch (Throwable $exception) {
             Log::error('error creating the ingredient ', [
