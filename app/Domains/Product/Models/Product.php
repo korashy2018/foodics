@@ -2,7 +2,7 @@
 
 namespace App\Domains\Product\Models;
 
-use App\Domains\Ingreditents\Models\Ingredient;
+use App\Domains\Ingredients\Models\Ingredient;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
