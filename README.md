@@ -32,13 +32,7 @@ a system that has three main models
 
 ---
 
-    php artisan 
-
-    composer install
-
-    cp .env.example .env
-
-    php artisan migrate
+    phpunit tests/
 
 ## Postman collection
 
