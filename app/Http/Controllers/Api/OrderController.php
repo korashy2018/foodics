@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domains\Order\Models\Order;
-use App\Http\Requests\Orders\StoreOrderRequest;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -28,7 +27,7 @@ class OrderController extends BaseApiController
      * Store a newly created resource in storage.
      */
     #[Post('/', name: 'orders.store')]
-    public function store(StoreOrderRequest $request)
+    public function store()
     {
         //
     }
