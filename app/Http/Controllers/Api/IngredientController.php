@@ -28,7 +28,7 @@ class IngredientController extends BaseApiController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
             $ingredients = Ingredient::with('stock')->orderBy('id', 'ASC')->paginate($this->perPage);
