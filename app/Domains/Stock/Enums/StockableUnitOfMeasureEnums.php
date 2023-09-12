@@ -4,8 +4,8 @@ namespace App\Domains\Stock\Enums;
 
 enum StockableUnitOfMeasureEnums: string
 {
-    case litre = 'L';
-    case kilo_grams = 'kg';
-    case pieces = 'pieces';
+    case litres = 'L';
+    case grams = 'gm';
+    case pieces = 'piece(s)';
 
 }

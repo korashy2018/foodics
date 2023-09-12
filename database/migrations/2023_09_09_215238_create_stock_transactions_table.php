@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('stock_id')->references('id')->on('stocks');
             $table->tinyInteger('type');
             $table->decimal('quantity');
-            $table->boolean('is_addition');
+            $table->boolean('is_addition')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

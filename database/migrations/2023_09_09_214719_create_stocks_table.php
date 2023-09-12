@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->index('stockable_id');
             $table->index(['stockable_id', 'stockable_type']);
             $table->decimal('quantity', 10, 2);
-            $table->string('unit_measure')->nullable(); //  grams, liters
+            $table->string('unit_measure'); //  grams, liters , pieces
             $table->boolean('is_countable')->default(false);
             $table->softDeletes();
             $table->timestamps();
