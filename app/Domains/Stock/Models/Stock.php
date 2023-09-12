@@ -36,4 +36,5 @@ class Stock extends Model
     {
         return $this->morphTo();
     }
+
 }

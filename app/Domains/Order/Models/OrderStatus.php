@@ -13,7 +13,7 @@ class OrderStatus extends Model
 
     protected $table = 'order_statuses';
     protected $fillable = [
-        'name',
+        'status',
         'order_id'
     ];
 

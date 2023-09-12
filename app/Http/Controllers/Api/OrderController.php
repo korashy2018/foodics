@@ -6,9 +6,10 @@ use App\Domains\Order\Models\Order;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
 use Spatie\RouteAttributes\Attributes\Middleware;
-use Spatie\RouteAttributes\Attributes\Resource;
+use Spatie\RouteAttributes\Attributes\Prefix;
 
-#[Resource(resource: 'orders', apiResource: true)]
+
+#[Prefix('orders')]
 #[Middleware(['auth:sanctum'])]
 class OrderController extends BaseApiController
 {
