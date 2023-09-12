@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Domains\Order\Models\Order;
 use App\Http\Resources\Orders\OrderCollectionResource;
+use App\Http\Resources\Orders\OrderResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Spatie\RouteAttributes\Attributes\Get;
@@ -51,9 +52,19 @@ class OrderController extends BaseApiController
      * Display the specified resource.
      */
     #[Get('/{order}', name: 'orders.show')]
-    public function show(Order $order)
+    public function show(Order $order): JsonResponse
     {
-        //
+        try {
+            return $this->sendResponse(new OrderResource($order), '');
+        } catch (Throwable $exception) {
+            Log::error('error listing the order ', [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'message' => $exception->getMessage(),
+                'Trace' => $exception->getTrace()
+            ]);
+            return $this->sendError(error: $exception->getMessage(), code: 500);
+        }
     }
 
 
