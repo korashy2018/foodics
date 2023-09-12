@@ -4,15 +4,15 @@
 
 ## Description
 
----
-a system that has three main modules
+--- 
+The system has three main modules
 
 - Product,
 - Ingredient,
 - Order
-- A long with Stock management for both products and
-  ingredients
-- All the unit measures are in grams and liters
+
+A long with Stock management for both products and
+ingredients
 
 ## System Features:
 
@@ -20,11 +20,14 @@ a system that has three main modules
 
 - The system groups the business models into domains with its business logic
 
-- In stock management system uses polymorphic relation to stock any type of modules that can be stocked
+- In stock management system uses polymorphic relation to stock any type of modules that can be stocked to better serve
+  scalability and further business needs with taking into consideration the readability in database with mapping the
+  morph to readable entity and also indexing the stockable for further retrieving of data
 
 - The System uses localized content to locales Arabic and English with Arabic as default locale
 
 - The system uses **Laravel** v.10 and **PHP** v.8.1
+- All the unit measures are in grams and liters
 
 ### Steps to run the project
 
