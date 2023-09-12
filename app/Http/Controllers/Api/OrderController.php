@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Domains\Order\Actions\PlaceOrderAction;
+use App\Domains\Order\DTO\OrderData;
 use App\Domains\Order\Models\Order;
 use App\Http\Resources\Orders\OrderCollectionResource;
 use App\Http\Resources\Orders\OrderResource;
@@ -43,9 +45,20 @@ class OrderController extends BaseApiController
      * Store a newly created resource in storage.
      */
     #[Post('/', name: 'orders.store')]
-    public function store()
+    public function store(OrderData $dto, PlaceOrderAction $placeOrderAction,)
     {
-        //
+        try {
+            $order = $placeOrderAction($dto);
+            return $this->sendResponse(new OrderResource($order), 'Created Successfully', 201);
+        } catch (Throwable $exception) {
+            Log::error('error creating the Order ', [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'message' => $exception->getMessage(),
+                'Trace' => $exception->getTrace()
+            ]);
+            return $this->sendError(error: $exception->getMessage(), code: 500);
+        }
     }
 
     /**

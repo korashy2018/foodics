@@ -3,6 +3,7 @@
 namespace App\Domains\Ingredients\Models;
 
 use App\Domains\Product\Models\Product;
+use App\Domains\Stock\Contracts\Stockable;
 use App\Domains\Stock\Models\Stock;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Ingredient extends Model
+class Ingredient extends Model implements Stockable
 {
     use HasFactory, SoftDeletes, Translatable;
 
@@ -19,7 +20,8 @@ class Ingredient extends Model
 
     protected $table = 'ingredients';
     protected $fillable = [
-        'expiry_date'
+        'expiry_date',
+        'notification_sent'
     ];
 
 
@@ -36,6 +38,6 @@ class Ingredient extends Model
         return $this->belongsToMany(Product::class, 'ingredients_products', 'ingredient_id', 'product_id')
             ->withTimestamps()
             ->withPivot([
-                'quantity_required']);
+                'quantity_required', 'unit_measure']);
     }
 }

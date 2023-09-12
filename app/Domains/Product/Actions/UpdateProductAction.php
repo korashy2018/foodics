@@ -17,7 +17,7 @@ class UpdateProductAction
         $product->update($prepareForUpdate);
         $prepareSyncData = [];
         foreach ($data->ingredients as $ingredient) {
-            $prepareSyncData[$ingredient->id] = ['quantity_required' => $ingredient->quantity_required];
+            $prepareSyncData[$ingredient->id] = ['quantity_required' => $ingredient->quantity_required, 'unit_measure' => $ingredient->unit_measure];
         }
 
         $product->ingredients()->sync($prepareSyncData, false);

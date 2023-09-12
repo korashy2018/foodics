@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
             $table->date('expiry_date');
+            $table->boolean('notification_sent')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
