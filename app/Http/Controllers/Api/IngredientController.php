@@ -31,10 +31,10 @@ class IngredientController extends BaseApiController
     public function index()
     {
         try {
-            $ingredients = Ingredient::with('stock')->orderBy('id', 'ASC')->paginate(5);
+            $ingredients = Ingredient::with('stock')->orderBy('id', 'ASC')->paginate($this->perPage);
             return $this->sendResponse(new IngredientCollectionResource($ingredients), '');
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error listing the ingredient ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -72,7 +72,7 @@ class IngredientController extends BaseApiController
         try {
             return $this->sendResponse(new IngredientResource($ingredient), '');
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error listing the ingredient ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -91,7 +91,7 @@ class IngredientController extends BaseApiController
             $ingredient = $updateIngredientAction($dto, $ingredient);
             return $this->sendResponse(new IngredientResource($ingredient), 'Updated Successfully');
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error updating the ingredient ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -110,7 +110,7 @@ class IngredientController extends BaseApiController
             if ($deleteIngredientAction($ingredient)) return $this->sendResponse([], 'Deleted Successfully');
             return $this->sendError(error: 'error deleting resource', code: 500);
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error deleting the ingredient ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),

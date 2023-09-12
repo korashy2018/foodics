@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 
 class BaseApiController extends Controller
 {
+    protected $perPage = 5;
+
     /**
      * success response method.
      *

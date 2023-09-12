@@ -27,10 +27,10 @@ class ProductController extends BaseApiController
     public function index(): JsonResponse
     {
         try {
-            $products = Product::with('ingredients')->orderBy('id', 'ASC')->paginate(5);
+            $products = Product::with('ingredients')->orderBy('id', 'ASC')->paginate($this->perPage);
             return $this->sendResponse(new ProductCollectionResource($products), '');
         } catch (Throwable $exception) {
-            Log::error('error creating the product ', [
+            Log::error('error listing the products ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -49,7 +49,7 @@ class ProductController extends BaseApiController
             $product = $createProductAction($dto);
             return $this->sendResponse(new ProductResource($product), 'Created Successfully', 201);
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error creating the product ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -67,7 +67,7 @@ class ProductController extends BaseApiController
         try {
             return $this->sendResponse(new ProductResource($product), 'Listed Successfully');
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error listing the product ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -86,7 +86,7 @@ class ProductController extends BaseApiController
             $product = $updateProductAction($dto, $product);
             return $this->sendResponse(new ProductResource($product), 'updated Successfully');
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error updating the product ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
@@ -105,7 +105,7 @@ class ProductController extends BaseApiController
             if ($deleteProductAction($product)) return $this->sendResponse([], 'Deleted Successfully');
             return $this->sendError(error: 'error deleting resource', code: 500);
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error deleting the product ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
