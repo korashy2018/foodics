@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Domains\Order\Models\Order;
 use App\Http\Requests\Orders\StoreOrderRequest;
-use App\Http\Requests\Orders\UpdateOrderRequest;
+use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
+use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
 
@@ -16,6 +17,8 @@ class OrderController extends BaseApiController
     /**
      * Display a listing of the resource.
      */
+
+    #[Get('/', name: 'orders.index')]
     public function index()
     {
         //
@@ -24,6 +27,7 @@ class OrderController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      */
+    #[Post('/', name: 'orders.store')]
     public function store(StoreOrderRequest $request)
     {
         //
@@ -32,24 +36,11 @@ class OrderController extends BaseApiController
     /**
      * Display the specified resource.
      */
+    #[Get('/{order}', name: 'orders.show')]
     public function show(Order $order)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOrderRequest $request, Order $order)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
 }
