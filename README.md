@@ -22,7 +22,7 @@ a system that has three main modules
 
 - In stock management system uses polymorphic relation to stock any type of modules that can be stocked
 
-- The System uses localized content to locales Arabic and English with arabic as default locale
+- The System uses localized content to locales Arabic and English with Arabic as default locale
 
 - The system uses **Laravel** v.10 and **PHP** v.8.1
 
