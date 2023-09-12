@@ -9,6 +9,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ingredient extends Model implements Stockable
@@ -25,7 +26,7 @@ class Ingredient extends Model implements Stockable
     ];
 
 
-    public function stock()
+    public function stock(): MorphOne
     {
         return $this->morphOne(Stock::class, 'stockable');
     }
