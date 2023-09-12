@@ -18,7 +18,7 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'ordered_date' => $this->order_date->format('Y/m/d H:i:s'),
-            'status' => OrderStatusEnums::tryFrom($this->current_status)->toString(),
+            'status' => OrderStatusEnums::tryFrom($this->status)->toString(),
             'customer_id' => $this->customer_id,
             'customer_name' => $this->customer->name,
             'items' => OrderItemResource::collection($this->items)
