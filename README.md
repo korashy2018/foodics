@@ -19,11 +19,11 @@ ingredients
 ---
 
 - The system groups the business models into domains with its business logic
-
+- The system sometimes denormalized and accommodates redundancy for the sake of performance , reporting and decrease
+  database hits
 - In stock management system uses polymorphic relation to stock any type of modules that can be stocked to better serve
   scalability and further business needs with taking into consideration the readability in database with mapping the
   morph to readable entity and also indexing the stockable for further retrieving of data
-
 - The System uses localized content to locales Arabic and English with Arabic as default locale
 
 - The system uses **Laravel** v.10 and **PHP** v.8.1
