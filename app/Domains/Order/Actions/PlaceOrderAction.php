@@ -33,5 +33,3 @@ class PlaceOrderAction
 
     }
 }
-
-Order::create(['customer_id' => 1, 'order_date' => '2023/12/15', 'current_status' => 0]);

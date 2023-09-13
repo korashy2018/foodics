@@ -8,6 +8,7 @@ use App\Domains\Order\Models\Order;
 use App\Http\Resources\Orders\OrderCollectionResource;
 use App\Http\Resources\Orders\OrderResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Middleware;
@@ -48,9 +49,12 @@ class OrderController extends BaseApiController
     public function store(OrderData $dto, PlaceOrderAction $placeOrderAction,)
     {
         try {
+            DB::beginTransaction();
             $order = $placeOrderAction($dto);
+            DB::commit();
             return $this->sendResponse(new OrderResource($order), 'Created Successfully', 201);
         } catch (Throwable $exception) {
+            DB::rollBack();
             Log::error('error creating the Order ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),

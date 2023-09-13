@@ -13,6 +13,7 @@ class UpdateIngredientStockAction
     {
         foreach ($product->ingredients as $ingredient) {
             $quantityToWithdraw = $ingredient->pivot->quantity_required * $quantityOrdered;
+            //TODO to check stock level for each ingredient not below zero before updating the transaction and throw erro
             $ingredient->stock->transactions()->create([
                 'type' => StockTransactionTypeEnums::WITHDRAW,
                 'quantity' => $quantityToWithdraw,
