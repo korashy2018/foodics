@@ -19,12 +19,13 @@ class Product extends Model implements Stockable
     public $translationModel = ProductTranslation::class;
     public $translatedAttributes = [
         'name',
-        'notification_sent'
 
     ];
     protected $table = 'products';
     protected $fillable = [
-        'price'
+        'price',
+        'notification_sent'
+
     ];
 
     public function stock(): MorphOne

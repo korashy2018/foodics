@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Domains\Ingredients\Models\Ingredient;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Ingreditents\Models\Ingredient>
+ * @extends Factory<Ingredient>
  */
 class IngredientFactory extends Factory
 {
@@ -17,7 +19,9 @@ class IngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'expiry_date' => Carbon::addWeeks(40),
+            'notification_sent' => false,
+            'name' => $this->faker->word(),
         ];
     }
 }

@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Domains\Product\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Product\Models\Product>
+ * @extends Factory<Product>
  */
 class ProductFactory extends Factory
 {
@@ -17,7 +18,9 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'notification_sent' => false,
+            'price' => $this->faker->randomNumber(3)
         ];
     }
 }
