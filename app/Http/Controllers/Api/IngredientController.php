@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Domains\Ingredients\Actions\CreateIngredientAction;
+use App\Domains\Ingredients\Actions\CreateIngredientStockAction;
+use App\Domains\Ingredients\Actions\CreateOrUpdateIngredientStockAction;
 use App\Domains\Ingredients\Actions\DeleteIngredientAction;
 use App\Domains\Ingredients\Actions\UpdateIngredientAction;
-use App\Domains\Ingredients\Actions\UpdateIngredientStockAction;
 use App\Domains\Ingredients\DTO\IngredientData;
 use App\Domains\Ingredients\DTO\IngredientUpdateStockData;
 use App\Domains\Ingredients\Models\Ingredient;
@@ -120,14 +121,14 @@ class IngredientController extends BaseApiController
         }
     }
 
-    #[Put(uri: '/ingredients/{ingredient}/updateStock', name: 'updateStock')]
-    public function updateStock(Ingredient $ingredient, UpdateIngredientStockAction $updateIngredientStockAction, IngredientUpdateStockData $dto): JsonResponse
+    #[Put(uri: '/ingredients/{ingredient}/createStock', name: 'createOrUpdateStock')]
+    public function createOrUpdateStock(Ingredient $ingredient, CreateOrUpdateIngredientStockAction $createOrUpdateIngredientStockAction, IngredientUpdateStockData $dto): JsonResponse
     {
         try {
-            $ingredient = $updateIngredientStockAction($dto, $ingredient);
-            return $this->sendResponse(new IngredientResource($ingredient), 'Updated Successfully');
+            $ingredient = $createOrUpdateIngredientStockAction($dto, $ingredient);
+            return $this->sendResponse(new IngredientResource($ingredient), 'updated Successfully');
         } catch (Throwable $exception) {
-            Log::error('error creating the ingredient ', [
+            Log::error('error updating the ingredient stock ', [
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
                 'message' => $exception->getMessage(),
