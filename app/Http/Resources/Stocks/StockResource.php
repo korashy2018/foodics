@@ -14,9 +14,10 @@ class StockResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $allWithDrawnStock = $this->transactions->where('is_addition', false)->sum('quantity') ?? 0;
         $unitOfMeasure = (!$this->is_countable) ? $this->unit_measure : 'pieces';
         return [
-            'quantity' => $this->quantity,
+            'available_stock' => $this->quantity - $allWithDrawnStock,
             'unit_measure' => $unitOfMeasure
         ];
     }
