@@ -8,7 +8,9 @@ use App\Domains\Ingredients\DTO\IngredientUpdateStockData;
 use App\Domains\Ingredients\Enums\IngredientUnitOfMeasureEnums;
 use App\Domains\Ingredients\Models\Ingredient;
 use App\Domains\Product\Models\Product;
+use App\Domains\Stock\Models\Stock;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->truncateBeforeSeeding();
         $ingredientsData = [
             [
                 "expiry_date" => "2023/10/17",
@@ -65,5 +68,13 @@ class DatabaseSeeder extends Seeder
 
         $product->ingredients()->sync($prepareSyncData);
 
+    }
+
+    private function truncateBeforeSeeding(): void
+    {
+        Ingredient::truncate();
+        Product::truncate();
+        Stock::truncate();
+        DB::table('ingredients_products')->truncate();
     }
 }
